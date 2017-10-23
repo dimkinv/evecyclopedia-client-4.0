@@ -16,11 +16,8 @@ let shipData = {
                     {"description":"","icon_path":"56_64_5.png","value":75}]
 };
 
-//output spy
-let editShipSpy = jasmine.createSpy('editShipSpy');
-
 describe('Zippy component shallow tests', ()=>{
-    let fixture:ComponentFixture<ShipDetailsComponent>, 
+    let fixture:ComponentFixture<ShipDetailsComponent>,
         component: ShipDetailsComponent;
 
     //TestBed.compileComponents returns a promise, so use async to wait for resolving
@@ -37,31 +34,10 @@ describe('Zippy component shallow tests', ()=>{
     beforeEach(() => {
         fixture = TestBed.createComponent(ShipDetailsComponent);
         component = fixture.componentInstance;
-        //@Input
-        component.ship = shipData;
-        //@Output
-        component.edit.subscribe(editShipSpy); //subscribe spy function to event handler
+
+        // setup input/output here
 
         fixture.detectChanges(); // trigger initial data binding
     });
 
-    it('Should display ship name', ()=> {
-        const shipNameElm  = fixture.debugElement.query(By.css('.title>h2')).nativeElement;
-        expect(shipNameElm.innerHTML).toBe('Test Ship 1');
-    });
-
-    it('Should emit change event when clicking edit ship', ()=> {
-        const editBtn  = fixture.debugElement.query(By.css('button'));
-        editBtn.triggerEventHandler('click', null);
-        fixture.detectChanges();
-        
-        expect(editShipSpy).toHaveBeenCalled();
-    });
-
-
-    it('Should include 2 unrendered info-capsule elements ', ()=> {
-        const infoCapsules  = fixture.debugElement.queryAll(By.css('info-capsule'));
-        expect(infoCapsules.length).toEqual(2);
-    });
-    
 });
